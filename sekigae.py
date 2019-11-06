@@ -33,21 +33,18 @@ if os.path.exists(path):
     shuffle_completed = False
     while not shuffle_completed:
         f = open('test.txt', 'rt')
-        previous_string = [i[:-1] for i in f.readlines()]
+        previous_member_list = [i[:-1] for i in f.readlines()]
         f.close()
-        print(previous_string)
+        print(previous_member_list)
         random.shuffle(member_list)
         print(member_list)
 
         for i in range(len(member_list)):
-            if member_list[i] == previous_string[i]:
-                print("かぶってるよ！")
+            if member_list[i] == previous_member_list[i]:
                 break
         else:
             member_dict = nabor_check(member_list)
             previous_dict = nabor_check(previous_list)
-            print(member_dict)
-            print(previous_dict)
 
             for i in member_list:
                 check_navor = set(member_dict[i] + previous_dict[i])
