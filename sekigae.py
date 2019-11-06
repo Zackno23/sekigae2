@@ -29,6 +29,7 @@ def neighbor_check(list):
 
 path = "./test.txt"
 
+# test.txtが存在する場合
 if os.path.exists(path):
     shuffle_completed = False
     while not shuffle_completed:
@@ -39,17 +40,19 @@ if os.path.exists(path):
         random.shuffle(member_list)
         print(member_list)
 
+
         for i in range(len(member_list)):
             if member_list[i] == previous_member_list[i]:
                 break
         else:
+            #members_lisを参照
             member_dict = neighbor_check(member_list)
             previous_dict = neighbor_check(previous_list)
 
             for i in member_list:
-                check_navor = set(member_dict[i] + previous_dict[i])
+                check_neighbor = set(member_dict[i] + previous_dict[i])
 
-                if len(check_navor) != 4:
+                if len(check_neighbor) != 4:
                     break
 
             else:
