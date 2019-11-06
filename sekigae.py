@@ -15,6 +15,7 @@ def list_to_string(list):
         string += f'{i}\n'
     return string
 
+
 # 右隣・左隣の組み合わせが前回とかぶらないようにチェック
 def neighbor_check(list):
     neighbor_dict = {}
@@ -36,16 +37,13 @@ if os.path.exists(path):
         f = open('test.txt', 'rt')
         previous_member_list = [i[:-1] for i in f.readlines()]
         f.close()
-        print(previous_member_list)
         random.shuffle(member_list)
-        print(member_list)
-
 
         for i in range(len(member_list)):
             if member_list[i] == previous_member_list[i]:
                 break
         else:
-            #members_lisを参照
+            # members_lisを参照
             member_dict = neighbor_check(member_list)
             previous_dict = neighbor_check(previous_list)
 
@@ -70,4 +68,10 @@ else:
     member_string = '吉田\n高橋\n舞鶴\n中野\n田中\n柴田\n兼松\n徳田\n下川\n熊谷\n山田\n塚田\n望月\n速水'
     f.write(member_string)
 
+print("TableA:", end="")
+# print(member_list[:4])
+print("TableB:", end="")
+# print(member_list[4:8])
+print("TableC:", end="")
+# print(member_list[8:])
 f.close()
