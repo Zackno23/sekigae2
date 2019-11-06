@@ -15,16 +15,16 @@ def list_to_string(list):
         string += f'{i}\n'
     return string
 
-
-def nabor_check(list):
-    nabor_dict = {}
+# 右隣・左隣の組み合わせが前回とかぶらないようにチェック
+def neighbor_check(list):
+    neighbor_dict = {}
     for i in list:
         name = list.index(i)
         if name != len(list) - 1:
-            nabor_dict[i] = [list[name - 1], list[name + 1]]
+            neighbor_dict[i] = [list[name - 1], list[name + 1]]
         else:
-            nabor_dict[i] = [list[-2], list[0]]
-    return nabor_dict
+            neighbor_dict[i] = [list[-2], list[0]]
+    return neighbor_dict
 
 
 path = "./test.txt"
@@ -43,8 +43,8 @@ if os.path.exists(path):
             if member_list[i] == previous_member_list[i]:
                 break
         else:
-            member_dict = nabor_check(member_list)
-            previous_dict = nabor_check(previous_list)
+            member_dict = neighbor_check(member_list)
+            previous_dict = neighbor_check(previous_list)
 
             for i in member_list:
                 check_navor = set(member_dict[i] + previous_dict[i])
