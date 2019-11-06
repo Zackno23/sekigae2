@@ -5,6 +5,7 @@ member_list = ["吉田", "高橋", "舞鶴", "中野",
                "田中", "柴田", "兼松", "徳田",
                "下川", "熊谷", "山田", "塚田",
                "望月", "速水"]
+previous_list = member_list.copy()
 
 
 # リストを改行入りの文字列にする
@@ -15,11 +16,22 @@ def list_to_string(list):
     return string
 
 
+def nabor_check(list):
+    nabor_dict = {}
+    for i in list:
+        name = list.index(i)
+        if name != len(list) - 1:
+            nabor_dict[i] = [list[name - 1], list[name + 1]]
+        else:
+            nabor_dict[i] = [list[-2], list[0]]
+    return nabor_dict
+
+
 path = "./test.txt"
 
 if os.path.exists(path):
     shuffle_completed = False
-    while shuffle_completed == False:
+    while not shuffle_completed:
         f = open('test.txt', 'rt')
         previous_string = [i[:-1] for i in f.readlines()]
         f.close()
@@ -32,10 +44,22 @@ if os.path.exists(path):
                 print("かぶってるよ！")
                 break
         else:
-            shuffle_completed = True
+            member_dict = nabor_check(member_list)
+            previous_dict = nabor_check(previous_list)
+            print(member_dict)
+            print(previous_dict)
+
+            for i in member_list:
+                check_navor = set(member_dict[i] + previous_dict[i])
+
+                if len(check_navor) != 4:
+                    break
+
+            else:
+                shuffle_completed = True
 
         shuffled_String = list_to_string(member_list)
-
+    else:
         f = open('test.txt', 'w')
         f.write(shuffled_String)
 
@@ -47,6 +71,3 @@ else:
     f.write(member_string)
 
 f.close()
-
-# f = open('test.txt', 'rt')
-# print(f.read())
